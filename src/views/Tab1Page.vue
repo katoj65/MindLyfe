@@ -1,23 +1,31 @@
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Tab 1</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 1</ion-title>
-        </ion-toolbar>
-      </ion-header>
+<applayout>
 
-      <ExploreContainer name="Tab 1 page" />
-    </ion-content>
-  </ion-page>
+some information
+
+
+
+
+
+
+
+
+
+</applayout>
 </template>
+<script>
+import Applayout from '@/components/Applayout.vue'
+export default {
+components:{
+Applayout,
 
-<script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+},
+
+
+
+
+
+
+
+}
 </script>
