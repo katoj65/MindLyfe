@@ -16,7 +16,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="primary">
-      <ion-button>
+      <ion-button @click="$router.push('/settings')">
         <ion-icon slot="icon-only" :ios="ellipsisHorizontal" :md="ellipsisVertical"></ion-icon>
       </ion-button>
     </ion-buttons>

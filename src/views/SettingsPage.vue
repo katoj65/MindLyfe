@@ -1,0 +1,50 @@
+<template>
+    <applayout :title="title">
+
+      <ion-list>
+        <ion-item>
+          <ion-label>Pokémon Yellow</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mega Man X</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>The Legend of Zelda</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Pac-Man</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Super Mario World</ion-label>
+        </ion-item>
+      </ion-list>
+
+
+
+    </applayout>
+    </template>
+    <script>
+    import Applayout from '@/components/Applayout.vue';
+    import { IonItem, IonLabel, IonList } from '@ionic/vue';
+    export default {
+    components:{
+    Applayout,
+    IonItem, IonLabel, IonList
+    },
+
+  data(){return{
+  title:'Settings',
+  back:'/'
+
+
+
+    }}
+
+
+
+
+
+
+
+    }
+    </script>
