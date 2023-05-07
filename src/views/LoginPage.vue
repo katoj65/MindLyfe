@@ -1,16 +1,16 @@
 <template>
-<ion-page>
+<ion-page style="background:#1ABC9C;">
 <form @submit.prevent="submit">
 
 <h1 style="font-size:30px;font-weight:bolder;">MindLyfe</h1>
-<ion-card style="box-shadow:none;">
+<ion-card style="box-shadow:none;background:#1ABC9C;">
 <ion-card-header>
-<ion-card-title style="text-align:center;">
+<ion-card-title style="text-align:center;color:white;">
 Sign In
 </ion-card-title>
 </ion-card-header>
 <ion-card-content>
-<p style="text-align:center;">Get access to our services</p>
+<p style="text-align:center;color:white;">Get access to our services</p>
 <ion-item lines="none">
 <ion-label >Email:</ion-label>
 <ion-input type="email" placeholder="Enter your email address" v-model="form.email"></ion-input>
@@ -30,7 +30,7 @@ Sign In
     <ion-button expand="block" type="submit" fill="clear">SignIn</ion-button>
 </div>
 <div id="signup">
-    <ion-button expand="block" style="box-shadow:none;" fill="clear">SignUp</ion-button>
+    <ion-button expand="block" style="box-shadow:none;" fill="clear" @click="$router.push('/register')">SignUp</ion-button>
 </div>
 
 </ion-card-content>
@@ -99,7 +99,7 @@ email:user3.email
 this.message='Invalid email address or password';
 this.$store.state.current_user=false;
 }
-
+this.$router.push('/');
 
 }
 
@@ -122,6 +122,7 @@ ion-card{
 p{
 margin-bottom:20px;
 margin-top:20px;
+color:white;
 }
 
 div{
@@ -130,11 +131,11 @@ padding-top:20px;
 }
 
 ion-button{
---backgroundColor:white;
+--backgroundColor:#1ABC9C;;
 }
 
 ion-item{
-border:solid thin silver;
+border:solid 1px #117A65;
 border-radius:10px;
 margin-bottom: 10px;;
 }
@@ -153,6 +154,10 @@ height:50px;
     box-shadow:none;
     height:50px;
 
+}
+
+ion-page{
+--background: #1ABC9C;
 }
 
 </style>

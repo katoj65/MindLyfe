@@ -1,6 +1,6 @@
 <template>
 <ion-page>
-<ion-header>
+<ion-header class="ion-no-border" color="black">
 <!-- <ion-toolbar>
 <ion-title>{{ title!=null?title:'MindLyfe' }} </ion-title>
 </ion-toolbar>
@@ -10,7 +10,6 @@
     <ion-buttons slot="secondary">
       <ion-button>
         <ion-icon slot="icon-only" :icon="search"></ion-icon>
-
       </ion-button>
       <ion-button>
         <ion-icon slot="icon-only" :icon="notifications"></ion-icon>
@@ -21,7 +20,7 @@
         <ion-icon slot="icon-only" :ios="ellipsisHorizontal" :md="ellipsisVertical"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ title!=null?title:'MindLyfe' }} </ion-title>
+    <ion-title style="font-weight:bolder;">{{ title!=null?title:'MindLyfe' }} </ion-title>
   </ion-toolbar>
 
 
@@ -100,3 +99,11 @@ notifications
 
 }
 </script>
+
+
+<style scoped>
+ion-toolbar{
+  --background:#1ABC9C;
+  --color: white;
+}
+</style>

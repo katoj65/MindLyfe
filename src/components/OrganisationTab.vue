@@ -22,6 +22,10 @@
           <ion-icon aria-hidden="true" :icon="people" />
           <ion-label>Dependents</ion-label>
         </ion-tab-button>
+        <ion-tab-button tab="tab4" href="/tabs/tab4">
+          <ion-icon aria-hidden="true" :icon="mail" />
+          <ion-label>Messages</ion-label>
+        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
 
@@ -37,5 +41,5 @@
 
 <script setup lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon,  IonRouterOutlet } from '@ionic/vue';
-import { ellipse, square, triangle ,home,calendar,people} from 'ionicons/icons';
+import { ellipse, square, triangle ,home,calendar,people, mail} from 'ionicons/icons';
 </script>
