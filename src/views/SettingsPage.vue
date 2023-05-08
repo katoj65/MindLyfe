@@ -1,21 +1,10 @@
 <template>
     <applayout :title="title">
 
+
       <ion-list>
-        <ion-item>
-          <ion-label>Pokémon Yellow</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Mega Man X</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>The Legend of Zelda</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Pac-Man</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Super Mario World</ion-label>
+        <ion-item v-for="n in list" :key="n.id" button lines="full" detail="true" @click="$router.push(n.url)">
+          <ion-label>{{ n.name }} </ion-label>
         </ion-item>
       </ion-list>
 
@@ -34,11 +23,23 @@
 
   data(){return{
   title:'Settings',
-  back:'/'
+  back:'/',
+list:[
+{name:'Profile',url:'/',id:1},
+{name:'All therapists',url:'/',id:2},
+{name:'Blogs',url:'/',id:3},
+{name:'Saved Items',url:'/',id:4},
+{name:'Account Settings',url:'/',id:5},
+{name:'Logout',url:'/login',id:6},
+
+
+      ]
 
 
 
-    }}
+    }},
+
+
 
 
 

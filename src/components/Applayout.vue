@@ -37,7 +37,7 @@
 
 <div>
 
-some information goes here
+<slot></slot>
 
 
 </div>

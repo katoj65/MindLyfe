@@ -6,7 +6,7 @@
 <ion-card style="box-shadow:none;background:#1ABC9C;">
 <ion-card-header>
 <ion-card-title style="text-align:center;color:white;">
-Sign In
+<span style="color:white;">Sign In</span>
 </ion-card-title>
 </ion-card-header>
 <ion-card-content>
@@ -149,6 +149,7 @@ height:50px;
 }
 #signin ion-button{
     --background:black;
+
     --color:white;
     --border:none;
     box-shadow:none;
