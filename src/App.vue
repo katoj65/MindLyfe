@@ -1,47 +1,59 @@
 <template>
 <ion-app>
-<!-- <login-page v-if="$store.state.app_state==false"></login-page> -->
-<span></span>
 <ion-router-outlet/>
 </ion-app>
 </template>
 
 <script>
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
-// import LoginPage from './views/LoginPage.vue';
+import { useBackButton, useIonRouter } from '@ionic/vue';
+import LoginController from './database/LoginController.js';
 export default{
 components:{
 IonApp,
 IonRouterOutlet,
-// LoginPage,
-
 },
 
 data(){return{
 session:null,
 
 
-
-
-
 }},
 
 methods:{
 access_control(){
-const state=this.$store.state.app_state;
-if(state==false){
-this.$router.push('/login');
+//session alive
+const db=new LoginController;
+db.user_session().then((response)=>{
+//const user=response.data.session.user.user_metadata;
+if(response.error==null){
+const user=response.data.session.user.user_metadata;
+this.$store.state.current_user.role=user.role;
+this.$store.state.user=user;
+console.log(response.data.session.user.user_metadata);
+this.$router.push('/');
+}else{
+this.$router('/login');
 }
+}).catch((error)=>{
+console.log(error);
+});
 }
-
-
-
-
 },
 
 mounted(){
 this.access_control();
-}
+},
+
+
+setup() {
+    const ionRouter = useIonRouter();
+    useBackButton(-1, () => {
+      if (!ionRouter.canGoBack()) {
+        App.exitApp();
+      }
+    });
+  }
 
 
 

@@ -1,7 +1,8 @@
 <template>
 <ion-page style="background:#1ABC9C;">
-<form @submit.prevent="submit">
+<ion-content>
 
+<form @submit.prevent="submit">
 <h1 style="font-size:30px;font-weight:bolder;">MindLyfe</h1>
 <ion-card style="box-shadow:none;background:#1ABC9C;">
 <ion-card-header>
@@ -13,37 +14,59 @@ Sign Up
 <p style="text-align:center;color:white;">Sign up to get access to our services</p>
 
 <ion-item lines="none">
-<ion-label >Firstname:</ion-label>
-<ion-input type="email" placeholder="Enter your email address" v-model="form.fname"></ion-input>
+<ion-input type="text" placeholder="Enter your first name" v-model="form.fname" label="First name:"></ion-input>
 </ion-item>
 
 
 
 
 <ion-item lines="none">
-<ion-label >Lastname:</ion-label>
-<ion-input type="email" placeholder="Enter your email address" v-model="form.lname"></ion-input>
+<ion-input type="text" placeholder="Enter your last name" v-model="form.lname" label="Last name:"></ion-input>
 </ion-item>
+
 
 
 <ion-item lines="none">
-<ion-label >Email:</ion-label>
-<ion-input type="email" placeholder="Enter your email address" v-model="form.email"></ion-input>
+<ion-select value="" label="Select gender:" @ionChange="select_gender($event)">
+<ion-select-option value="male">Male</ion-select-option>
+<ion-select-option value="female">Female</ion-select-option>
+<ion-select-option value="other">Other</ion-select-option>
+</ion-select>
 </ion-item>
+
+
+
+
+
 
 <ion-item lines="none">
-<ion-label>Password:</ion-label>
-<ion-input type="password" placeholder="Enter your password" v-model="form.password"></ion-input>
+<ion-input type="number" placeholder="Enter your telephone number" v-model="form.tel" label="Tel:"></ion-input>
 </ion-item>
 
-<p style="padding:10px; color:red;" v-if="message!=null">
-{{ message }}
-</p>
 
 
-<div id="signin">
-<ion-button expand="block" type="submit" fill="clear">SignUp</ion-button>
+
+
+
+
+
+<ion-item lines="none">
+<ion-input type="email" placeholder="Enter your email address" v-model="form.email" label="Email:"></ion-input>
+</ion-item>
+
+
+
+
+<ion-item lines="none">
+<ion-input type="password" placeholder="Enter your password" v-model="form.password" label="Password:"></ion-input>
+</ion-item>
+
+
+<div class="ion-padding" v-if="error!=null" style="color:red;">
+{{ error }}
 </div>
+
+<submit-button :title="'SigUp'" :isLoading="isLoading"/>
 <div id="signup">
 <ion-button expand="block" style="box-shadow:none;" fill="clear" @click="$router.push('/login')">SignIn</ion-button>
 </div>
@@ -51,130 +74,162 @@ Sign Up
 </ion-card-content>
 </ion-card>
 </form>
+
+</ion-content>
+
 </ion-page>
 </template>
 
-    <script>
-    import { IonPage, IonCard,IonCardHeader, IonCardContent,IonCardTitle, IonItem, IonLabel, IonInput, IonButton } from '@ionic/vue';
-    export default {
-    components:{
-    IonPage,
-    IonCard,
-    IonCardHeader,
-    IonCardContent,
-    IonCardTitle,
-    IonItem,
-    IonLabel,
-    IonInput,
-    IonButton
-    },
+<script>
+import LoginController from '@/database/LoginController.js';
+import { IonPage, IonCard,IonCardHeader,
+IonCardContent,IonCardTitle, IonItem, IonLabel, IonInput,IonSelect, IonSelectOption,
+IonButton,IonContent } from '@ionic/vue';
+import SubmitButton from '@/components/SubmitButton.vue';
+export default {
+components:{
+IonPage,
+IonCard,
+IonCardHeader,
+IonCardContent,
+IonCardTitle,
+IonItem,
+IonLabel,
+IonInput,
+IonButton,
+IonContent,
+SubmitButton,
+IonSelect, IonSelectOption,
+},
 
 
-    data(){return{
-    message:null,
-    form:{
-    fname:'',
-    lname:'',
-    email:'',
-    password:'',
+data(){return{
+error:null,
+isLoading:false,
+message:null,
+form:{
+fname:'joshua',
+lname:'kato',
+email:'katoj65@gmail.com',
+gender:'male',
+tel:'0752567534',
+password:'1234567890',
 
 
-    }
-
-
-
-    }},
-
-    methods:{
-    submit(){
-    this.$store.state.app_state=true
-    const user1=this.$store.state.user1;
-    const user2=this.$store.state.user2;
-    const user3=this.$store.state.user3;
-
-    if(user1.email==this.form.email){
-    this.$router.push('/');
-    this.$store.state.current_user={
-    role:user1.role,
-    fname:user1.fname,
-    lname:user1.lname,
-    email:user1.email
-    }
-    }else if(user2.email==this.form.email){
-    this.$store.state.current_user={
-    role:user2.role,
-    fname:user2.fname,
-    lname:user2.lname,
-    email:user2.email
-    }
-    }else if(user3.email==this.form.email){
-    this.$store.state.current_user={
-    role:user3.role,
-    fname:user3.fname,
-    lname:user3.lname,
-    email:user3.email
-    }
-    }else{
-    this.message='Invalid email address or password';
-    this.$store.state.current_user=false;
-    }
-
-
-    }
+}
 
 
 
-    }
+}},
+
+methods:{
+select_gender(event){
+this.form.gender=event.target.value;
+},
 
 
 
 
-    }
-    </script>
+submit(){
+const form=this.form;
+//this.$store.state.app_state=true
+if(form.fname=='' || form.lname=='' || form.gender=='' || form.tel=='' || form.email=='' || form.password==''){
+this.error='Fill in all fields';
+}else{
+this.isLoading=true;
+const db=new LoginController;
+db.register(form).then((res)=>{
+if(res.data.error==null){
+this.isLoading=false;
+
+if(res.error==null){
+
+this.$router.push('/create-profile');
+
+}else{
+
+const status=res.error.status;
+if(status==400){
+this.error='User already registered.';
+}
+}
 
 
-    <style scoped>
-    ion-card{
-    --box-shadow:none;
-    }
 
-    p{
-    margin-bottom:20px;
-    margin-top:20px;
-    }
+}else{
+this.errorres.data.error;
+}
+}).catch((error)=>{
+console.log(error);
+});
 
-    div{
-    text-align: center;
-    padding-top:20px;
-    }
+}
 
-    ion-button{
-    --backgroundColor:white;
-    }
 
-    ion-item{
-    border:solid 1px #117A65;
-    border-radius:10px;
-    margin-bottom: 10px;;
-    }
 
-    #signup ion-button{
-     --background:white;
-     --color:gray;
-     --border:none;
-     box-shadow:none;
-    height:50px;
-    }
-    #signin ion-button{
-    --background:black;
-    --color:white;
-    --border:none;
-    box-shadow:none;
-    height:50px;
 
-    }
 
-    ion-page{
-    background:#1ABC9C;
-    }
-    </style>
+
+
+}
+
+
+
+}
+
+
+
+
+}
+</script>
+
+
+<style scoped>
+ion-card{
+--box-shadow:none;
+}
+
+p{
+margin-bottom:20px;
+margin-top:20px;
+}
+
+div{
+text-align: center;
+padding-top:20px;
+}
+
+ion-button{
+--backgroundColor:white;
+}
+
+ion-item{
+border:solid 1px #117A65;
+border-radius:10px;
+margin-bottom: 10px;;
+}
+
+#signup ion-button{
+--background:white;
+--color:gray;
+--border:none;
+box-shadow:none;
+height:50px;
+}
+#signin ion-button{
+--background:black;
+--color:white;
+--border:none;
+box-shadow:none;
+height:50px;
+
+}
+
+ion-page{
+background:#1ABC9C;
+}
+ion-content{
+--background:#1ABC9C;
+padding:0;
+}
+</style>

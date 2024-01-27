@@ -11,14 +11,19 @@
 </ion-card-header>
 <ion-card-content>
 <p style="text-align:center;color:white;">Get access to our services</p>
+
+
+<div v-if="error!=null" class="ion-padding" style="color:red;">
+{{ error }}
+</div>
+
+
 <ion-item lines="none">
-<ion-label >Email:</ion-label>
-<ion-input type="email" placeholder="Enter your email address" v-model="form.email"></ion-input>
+<ion-input type="email" placeholder="Enter your email address" v-model="form.email" label="Email:"></ion-input>
 </ion-item>
 
 <ion-item lines="none">
-<ion-label>Password:</ion-label>
-<ion-input type="password" placeholder="Enter your password" v-model="form.password"></ion-input>
+<ion-input type="password" placeholder="Enter your password" v-model="form.password" label="Password:"></ion-input>
 </ion-item>
 
 <p style="padding:10px; color:red;" v-if="message!=null">
@@ -26,9 +31,7 @@
 </p>
 
 
-<div id="signin">
-    <ion-button expand="block" type="submit" fill="clear">SignIn</ion-button>
-</div>
+<submit-button :isLoading="isLoading" :title="'SignIn'"/>
 <div id="signup">
     <ion-button expand="block" style="box-shadow:none;" fill="clear" @click="$router.push('/register')">SignUp</ion-button>
 </div>
@@ -39,8 +42,11 @@
 </ion-page>
 </template>
 
+
 <script>
-import { IonPage, IonCard,IonCardHeader, IonCardContent,IonCardTitle, IonItem, IonLabel, IonInput, IonButton } from '@ionic/vue';
+import { IonPage, IonCard,IonCardHeader, IonCardContent,IonCardTitle, IonItem, IonInput, IonButton } from '@ionic/vue';
+import SubmitButton from '@/components/SubmitButton.vue';
+import LoginController from '@/database/LoginController';
 export default {
 components:{
 IonPage,
@@ -49,18 +55,20 @@ IonCardHeader,
 IonCardContent,
 IonCardTitle,
 IonItem,
-IonLabel,
 IonInput,
-IonButton
+IonButton,
+SubmitButton,
 },
 
 
-data(){return{
+data(){
+return{
+isLoading:false,
+error:null,
 message:null,
 form:{
 email:'katoj65@gmail.com',
-password:'123456789',
-
+password:'1234567890',
 }
 
 
@@ -69,47 +77,33 @@ password:'123456789',
 
 methods:{
 submit(){
-this.$store.state.app_state=true
-const user1=this.$store.state.user1;
-const user2=this.$store.state.user2;
-const user3=this.$store.state.user3;
-
-if(user1.email==this.form.email){
-this.$store.state.current_user={
-role:user1.role,
-fname:user1.fname,
-lname:user1.lname,
-email:user1.email
-}
-}else if(user2.email==this.form.email){
-this.$store.state.current_user={
-role:user2.role,
-fname:user2.fname,
-lname:user2.lname,
-email:user2.email
-}
-}else if(user3.email==this.form.email){
-this.$store.state.current_user={
-role:user3.role,
-fname:user3.fname,
-lname:user3.lname,
-email:user3.email
-}
+//
+this.isLoading=true;
+const form=this.form;
+if(form.email=='' || form.password==''){
+this.error='Fill in your email and password';
 }else{
-this.message='Invalid email address or password';
-this.$store.state.current_user=false;
-}
+const db=new LoginController;
+db.login(form).then((res)=>{
+this.isLoading=false;
+if(res.error==null){
+const user=res.data.user.user_metadata;
+this.$store.state.current_user.role=user.role;
+this.$store.state.user=user;
 this.$router.push('/');
-
+}else{
+if(res.error.status==400){
+this.error='Invalid email or password.';
+}
+}
+}).catch((error)=>{
+this.error='Connection error';
+});
 }
 
 
-
 }
-
-
-
-
+}
 }
 </script>
 

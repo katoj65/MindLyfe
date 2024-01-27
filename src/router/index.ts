@@ -51,6 +51,11 @@ name:'login'
 path:'/settings',
 component:SettingsPage,
 name:'settings'
+},
+{
+path:'/create-profile',
+component:()=>import('@/views/CreateProfile.vue'),
+name:'create profile'
 }
 
 
