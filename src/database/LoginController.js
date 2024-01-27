@@ -63,6 +63,12 @@ data:{role:role}
 
 
 
+//signout
+async logout(){
+return await supabase.auth.signOut();
+}
+
+
 
 
 

@@ -1,59 +1,35 @@
 <template>
-<ion-card style="margin:0;">
-<ion-card-content>
-<ion-list>
-<ion-item v-for="n in 30" :key="n" detail="true" button style="margin-bottom:10px;" lines="none">
-<ion-thumbnail slot="start">
-<img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-</ion-thumbnail>
-<ion-label style="font-weight:bold;">
-<h4 style="font-weight:bold;">Advise title</h4>
-<p>
-Here's a small text description for the card content. Nothing more, nothing less.
-</p>
+<div style="padding:10px;">
+
+
+<ion-item v-for="n in 30" :key="n" lines="none" detail="true" >
+<ion-avatar slot="start">
+<img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+</ion-avatar>
+<ion-label>
+
+    The second list mimics the iOS Mail app to show an
+     inbox. This list makes use of custom metadata including an
 
 </ion-label>
+
 </ion-item>
 
-</ion-list>
-</ion-card-content>
-</ion-card>
+
+
+</div>
 </template>
 
-<script lang="ts">
-import { IonCard, IonCardContent} from '@ionic/vue';
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-components: { IonCard, IonCardContent, },
-
-data(){return{
-
-
-
-
-
-
-
-}},
-
-
-
-
-
-
-
-});
-</script>
-
-<style scoped>
-ion-item {
---padding-start: 10px;
---background: #E8F6F3 ;
-border-radius: 10px;
+<script>
+export default {
+components:{
 
 }
-
-
-
+}
+</script>
+<style scoped>
+ion-item{
+margin-bottom:5px;
+border-radius:5px;
+}
 </style>

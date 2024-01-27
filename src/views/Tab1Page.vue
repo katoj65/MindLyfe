@@ -1,25 +1,7 @@
 <template>
 <applayout>
 <news-component></news-component>
-<content-component></content-component>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<content-component style="margin-top:10px;"></content-component>
 
 
 
@@ -34,11 +16,26 @@ components:{
 Applayout,
 NewsComponent,
 ContentComponent
-
 },
 
+data(){return{
 
 
+}},
+
+
+
+computed:{
+user(){
+return this.$store.state.user;
+},
+role(){
+ return this.$store.state.user.role
+}
+
+
+
+}
 
 
 

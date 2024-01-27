@@ -7,7 +7,8 @@ return {
 count: 0,
 //
 app_state:false,
-user:null,
+role:null,
+user:{},
 //
 current_user:{
 role:null,

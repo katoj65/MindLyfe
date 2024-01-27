@@ -88,7 +88,7 @@ db.login(form).then((res)=>{
 this.isLoading=false;
 if(res.error==null){
 const user=res.data.user.user_metadata;
-this.$store.state.current_user.role=user.role;
+this.$store.state.role=user.role;
 this.$store.state.user=user;
 this.$router.push('/');
 }else{

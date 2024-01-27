@@ -35,7 +35,7 @@
 
 
 
-<div>
+<div style="background:#E8F8F5;">
 
 <slot></slot>
 
