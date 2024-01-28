@@ -23,6 +23,8 @@ lname:form.lname,
 gender:form.gender,
 tel:form.tel,
 role:'',
+subscription:'',
+online_status:true,
 }
 }
 }

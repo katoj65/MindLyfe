@@ -56,6 +56,16 @@ name:'settings'
 path:'/create-profile',
 component:()=>import('@/views/CreateProfile.vue'),
 name:'create profile'
+},
+{
+path:'/account/subscription',
+component:()=>import('@/views/SubscriptionPaymentStructure.vue'),
+name:'create subscription'
+},
+{
+  path:'/account/business',
+  component:()=>import('@/views/AccountBusiness.vue'),
+  name:'create business'
 }
 
 

@@ -108,12 +108,12 @@ error:null,
 isLoading:false,
 message:null,
 form:{
-fname:'joshua',
-lname:'kato',
-email:'katoj65@gmail.com',
-gender:'male',
-tel:'0752567534',
-password:'1234567890',
+fname:'',
+lname:'',
+email:'',
+gender:'',
+tel:'',
+password:'',
 
 
 }

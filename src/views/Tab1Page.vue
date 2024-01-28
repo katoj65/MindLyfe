@@ -1,7 +1,7 @@
 <template>
 <applayout>
 <news-component></news-component>
-<content-component style="margin-top:10px;"></content-component>
+<content-component style="margin-top:0px;"></content-component>
 
 
 

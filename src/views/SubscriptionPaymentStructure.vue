@@ -1,7 +1,7 @@
 <template>
 <ion-page style="background:#1ABC9C;">
+<ion-content>
 <form @submit.prevent="submit" v-if="isLoading2==false">
-
 <div style="padding-left:45%;">
 <ion-avatar>
 <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
@@ -16,7 +16,7 @@
 <ion-card style="box-shadow:none;background:#1ABC9C;">
 <ion-card-header>
 <ion-card-title style="text-align:center;color:white;">
-<span style="color:white;">Select Profile</span>
+<span style="color:white;">Select your subscription</span>
 </ion-card-title>
 </ion-card-header>
 <ion-card-content>
@@ -40,6 +40,7 @@
 <div v-else class="ion-padding">
 <skeleton-loader/>
 </div>
+</ion-content>
 </ion-page>
 </template>
 
@@ -47,11 +48,8 @@
 import { IonPage, IonCard,IonCardHeader,
 IonCardContent,IonCardTitle, IonItem, IonInput,
 IonButton, IonAvatar,
-IonRadio, IonRadioGroup
-
-
-
-    } from '@ionic/vue';
+IonRadio, IonRadioGroup,IonContent
+} from '@ionic/vue';
 import LoginController from '@/database/LoginController.js';
 import RoleController from '@/database/RoleController.js';
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
@@ -71,7 +69,8 @@ IonAvatar,
 SkeletonLoader,
 IonRadio,
 IonRadioGroup,
-SubmitButton
+SubmitButton,
+IonContent
 },
 
 
@@ -193,4 +192,8 @@ ion-radio {
 --color:black;
 }
 
+ion-content{
+--background:#1ABC9C;
+padding:0;
+}
 </style>@/

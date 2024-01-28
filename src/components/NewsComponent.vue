@@ -60,10 +60,10 @@ return this.$store.state.user.role
 
 
 setup() {
-      return {
-        calendar,people
-      };
-    },
+return {
+calendar,people
+};
+},
 
 
 
@@ -93,5 +93,9 @@ color:white;
 }
 ion-chip{
 color:white;
+}
+ion-card-title{
+border-bottom:solid thin white;
+padding-bottom:10px;
 }
 </style>
