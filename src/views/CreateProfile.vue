@@ -129,10 +129,10 @@ db.set_role(this.form.role).then((res)=>{
 if(res.error==null){
 this.isLoading=false;
 this.$store.state.app_state=true;
-
-
 if(this.form.role=='user'){
+    
 this.$router.push('/account/subscription');
+
 }else{
 this.$router.push('/account/business');
 }

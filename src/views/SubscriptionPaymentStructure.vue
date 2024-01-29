@@ -16,21 +16,57 @@
 <ion-card style="box-shadow:none;background:#1ABC9C;">
 <ion-card-header>
 <ion-card-title style="text-align:center;color:white;">
-<span style="color:white;">Select your subscription</span>
+<p>Choose your subscription plan or enter a campany code</p>
 </ion-card-title>
 </ion-card-header>
 <ion-card-content>
 
+
 <div class="ion-padding" v-if="error!=null" style="color:red;">
 {{ error }}
 </div>
+
+<div v-if="group==true">
+<div v-if="isLoading3==false">
 <ion-radio-group>
-<ion-item v-for="(r,key) in roles" :key="key" @click="select_role(r.name)">
-<span style="padding-right:10px;">{{ r.name }}</span>
-<ion-radio :value="r.name" aria-label="">
+<ion-item v-for="(p,key) in payment_plan" :key="key" @click="select_plan(p.id)">
+<ion-radio :value="p.id" :label="p.title"   justify="space-between">
+{{ p.title }} - Shs. {{ p.amount }}
 </ion-radio>
 </ion-item>
 </ion-radio-group>
+</div>
+<skeleton-loader v-else class="ion-padding"/>
+
+
+
+
+</div>
+
+<div v-if="code_status==true || code_status==null" style="margin-top:10px;">
+<h2 style="color:white;font-weight:bold;font-size:20px;padding-bottom:10px;">
+Campany Code
+</h2>
+<div style="">
+<ion-item>
+<ion-input label="Company Code:" placeholder="Enter a 5 digit code" @ionKeypress="input_code($event)"></ion-input>
+</ion-item>
+</div>
+
+
+</div>
+
+<ion-chip v-else-if="code_status==false" @click="set_business_code(true)">
+<ion-label style="color:white;">I Have a company code</ion-label>
+</ion-chip>
+
+<ion-chip v-if="code_status==true" @click="set_business_code(false)">
+<ion-label style="color:white;">Select subscription plan</ion-label>
+</ion-chip>
+
+
+
+
 <div>
 <submit-button :isLoading="isLoading" :title="'Finish'"/>
 </div>
@@ -45,18 +81,31 @@
 </template>
 
 <script>
-import { IonPage, IonCard,IonCardHeader,
-IonCardContent,IonCardTitle, IonItem, IonInput,
-IonButton, IonAvatar,
-IonRadio, IonRadioGroup,IonContent
-} from '@ionic/vue';
-import LoginController from '@/database/LoginController.js';
-import RoleController from '@/database/RoleController.js';
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
 import SubmitButton from '@/components/SubmitButton.vue';
+import LoginController from '@/database/LoginController.js';
+import SubscriptionController from '@/database/SubscriptionController.js';
+import {
+IonAvatar,
+IonButton,
+IonCard,
+IonCardContent,
+IonCardHeader,
+IonCardTitle,
+IonContent,
+IonInput,
+IonItem,
+IonPage,
+IonRadio,
+IonRadioGroup,
+IonChip,
+IonLabel,
+} from '@ionic/vue';
 
 export default {
 components:{
+IonLabel,
+IonChip,
 IonPage,
 IonCard,
 IonCardHeader,
@@ -67,45 +116,90 @@ IonInput,
 IonButton,
 IonAvatar,
 SkeletonLoader,
+SubmitButton,
+IonContent,
 IonRadio,
 IonRadioGroup,
-SubmitButton,
-IonContent
 },
 
 
 data(){
 return{
-
+group:true,
+code_status:null,
 form:{
-role:'',
+subscription_id:'',
 },
+payment_plan:[],
 error:null,
 isLoading:false,
 row:{},
-roles:[],
 isLoading2:false,
+isLoading3:false,
 }},
 
 methods:{
+//select code
+input_code(event){
+this.form.subscription_id=event.target.value;
+this.group=false;
+this.code_status=true;
+},
+
+
+
 //
+set_business_code(status){
+this.code_status=status;
+this.form.subscription_id='';
+if(status==true){
+this.group=false;
+}else{
+this.group=true;
+this.code_status=false;
+}
+
+},
+
+
+//
+select_plan(event){
+this.form.subscription_id=event;
+this.code_status=false;
+},
+
+
 user_data(){
 this.isLoading2=true;
+this.isLoading3=true;
 const db=new LoginController;
 db.user_session().then((res)=>{
 if(res.data.error==null){
-this.row=res.data.session.user.user_metadata;
-const role_data=new RoleController;
-role_data.roles().then((response)=>{
+const subscribe_model=new SubscriptionController;
+subscribe_model.show_user_subscription().then((response)=>{
 if(response.status==200){
-this.isLoading2=false;
-this.roles=response.data;
+
+this.payment_plan=response.data;
+this.isLoading3=false;
+this.form.contact_person=this.row.tel;
+
+
+
 }else{
-this.error=response.error;
+console.log(response.error);
+this.error=response.error.name;
 }
+
+
 }).catch((errors)=>{
 console.log(errors);
 });
+
+this.row=res.data.session.user.user_metadata;
+this.isLoading2=false;
+
+
+
 
 }else{
 this.error='An error occured.';
@@ -118,27 +212,13 @@ console.log(error);
 //submit
 
 submit(){
-if(this.form.role!=''){
-this.isLoading=true;
-const db=new LoginController;
-db.set_role(this.form.role).then((res)=>{
-if(res.error==null){
-this.isLoading=false;
-this.$store.state.app_state=true;
+const form=this.form;
+if(form.subscription_id==''){
+this.error='Select your subscription plan or fill in the business code.';
+}else{
 this.$router.push('/');
-}else{
-this.error='Error';
-}
-
-}).catch((error)=>{console.log(error)});
-}else{
-this.error='Select a user profile please.';
 }
 },
-
-select_role(item){
-this.form.role=item;
-}
 
 
 },
@@ -160,14 +240,12 @@ ion-card{
 }
 
 p{
-margin-bottom:20px;
-margin-top:20px;
+
 color:white;
 }
 
 div{
 text-align: center;
-padding-top:20px;
 }
 
 ion-button{
@@ -196,4 +274,4 @@ ion-content{
 --background:#1ABC9C;
 padding:0;
 }
-</style>@/
+</style>

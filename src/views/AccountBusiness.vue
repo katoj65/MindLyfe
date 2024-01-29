@@ -2,7 +2,6 @@
 <ion-page style="background:#1ABC9C;">
 <ion-content>
 <form @submit.prevent="submit" v-if="isLoading2==false">
-
 <div style="padding-left:45%;">
 <ion-avatar>
 <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
@@ -47,7 +46,7 @@
 <div style="border-top:solid 1px white;padding:10px;margin-top:10px;" v-if="isLoading3==false">
 <h3 style="color:white;font-size:18px;font-weight:bold;padding-bottom:10px;">Select Subscription Plan</h3>
 <ion-radio-group>
-<ion-item v-for="(p,key) in payment_plan" :key="key">
+<ion-item v-for="(p,key) in payment_plan" :key="key" @click="select_plan(p.id)">
 <ion-radio :value="p.id" :label="p.title"   justify="space-between">
 {{ p.title }} - Shs. {{ p.amount }}
 </ion-radio>
@@ -78,6 +77,7 @@ import SkeletonLoader from '@/components/SkeletonLoader.vue';
 import SubmitButton from '@/components/SubmitButton.vue';
 import LoginController from '@/database/LoginController.js';
 import SubscriptionController from '@/database/SubscriptionController.js';
+import BusinessController from '@/database/BusinessController.js';
 import {
 IonAvatar,
 IonButton,
@@ -114,13 +114,13 @@ IonRadioGroup,
 
 data(){
 return{
-
 form:{
 name:'',
 address:'',
-tel:'',
-contact_person:''
+contact_person:'',
+subscription_id:'',
 },
+
 payment_plan:[],
 error:null,
 isLoading:false,
@@ -131,6 +131,12 @@ isLoading3:false,
 
 methods:{
 //
+select_plan(event){
+this.form.subscription_id=event;
+
+},
+
+
 user_data(){
 this.isLoading2=true;
 this.isLoading3=true;
@@ -140,8 +146,13 @@ if(res.data.error==null){
 const subscribe_model=new SubscriptionController;
 subscribe_model.show_business_subscription().then((response)=>{
 if(response.status==200){
+
 this.payment_plan=response.data;
 this.isLoading3=false;
+this.form.contact_person=this.row.tel;
+
+
+
 }else{
 console.log(response.error);
 this.error=response.error.name;
@@ -170,15 +181,24 @@ console.log(error);
 
 submit(){
 const form=this.form;
-if(form.name=='' || form.address=='' || form.contact_person==''){
+if(form.name=='' || form.address=='' || form.contact_person=='' || form.subscription_id==''){
 this.error='Fill in all fields';
 }else{
-
-
+const db=new BusinessController;
+db.create_business(this.form).then((res)=>{
+if(res.status==201){
+console.log(res);
+this.$router.push('/');
+}else{
+console.log(res.error);
+this.error='An error has occured.';
+}
+}).catch((error)=>{
+console.log(error);
+});
 
 
 }
-
 },
 
 

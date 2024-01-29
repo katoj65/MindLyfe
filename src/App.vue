@@ -46,7 +46,7 @@ console.log(response.data.session.user.user_metadata);
 if(response.data.session.user.user_metadata.subscription==null){
 this.$router.push('/login');
 }else{
-// this.$router.push('/');
+this.$router.push('/');
 }
 }else{
 this.$router.push('/login');
