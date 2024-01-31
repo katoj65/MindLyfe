@@ -2,9 +2,6 @@
 <applayout>
 <news-component></news-component>
 <content-component style="margin-top:0px;"></content-component>
-
-
-
 </applayout>
 </template>
 <script>
@@ -30,11 +27,18 @@ user(){
 return this.$store.state.user;
 },
 role(){
- return this.$store.state.user.role
+return this.$store.state.user.role
 }
+},
 
+methods:{
+test(){
+console.log(this.$route.meta);
+}
+},
 
-
+mounted(){
+this.test();
 }
 
 

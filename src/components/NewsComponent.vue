@@ -4,7 +4,7 @@
 <ion-card-title>
 Welcome <span style="text-transform:capitalize;margin-left:10px;">{{ user.fname }}!</span>
 </ion-card-title>
-<ion-card-subtitle>Consult your therapist</ion-card-subtitle>
+<ion-card-subtitle style="font-size:18px;">Consult your therapist</ion-card-subtitle>
 </ion-card-header>
 
 <ion-card-content>
@@ -14,7 +14,7 @@ Welcome <span style="text-transform:capitalize;margin-left:10px;">{{ user.fname 
 </ion-chip>
 
 
-<ion-chip>
+<ion-chip style="float:right;">
 <ion-icon :icon="people"></ion-icon>
 <ion-label>20 Therapists</ion-label>
 </ion-chip>

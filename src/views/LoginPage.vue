@@ -1,10 +1,6 @@
 <template>
 <ion-page style="background:#1ABC9C;">
-<ion-content>
-
-
-
-
+<ion-content v-if="session==false">
 <form @submit.prevent="submit">
 <h1 style="font-size:30px;font-weight:bolder;">MindLyfe</h1>
 <ion-card style="box-shadow:none;background:#1ABC9C;">
@@ -43,7 +39,6 @@
 </ion-card-content>
 </ion-card>
 </form>
-
 </ion-content>
 </ion-page>
 </template>
@@ -110,7 +105,25 @@ this.error='Connection error';
 
 
 }
+},
+
+
+//
+computed:{
+session(){
+return this.$route.meta.auth;
 }
+
+
+
+
+
+}
+
+
+
+
+
 }
 </script>
 

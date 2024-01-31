@@ -1,6 +1,5 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 // Create a new store instance.
-
 export const store = createStore({
 state () {
 return {
@@ -31,4 +30,6 @@ state.count++
 }
 }
 });
+
+
 

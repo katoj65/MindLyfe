@@ -32,12 +32,13 @@ session:null,
 
 methods:{
 access_control(){
+console.log(this.$route.meta);
 //session alive
 const db=new LoginController;
 db.user_session().then((response)=>{
+
+
 if(response.error==null){
-
-
 if(response.data.session!=null){
 const user=response.data.session.user.user_metadata;
 this.$store.state.role=user.role;
@@ -63,6 +64,13 @@ this.$router('/login');
 }).catch((error)=>{
 console.log(error);
 });
+
+
+
+
+
+
+
 },
 
 async settings(){
