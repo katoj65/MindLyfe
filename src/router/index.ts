@@ -5,16 +5,17 @@ import RegisterPage from '../views/RegisterPage.vue';
 import LoginPage from '../views/LoginPage.vue';
 import SettingsPage from '../views/SettingsPage.vue';
 //session
-import supabase from '../database/connection.js';
-let session=false;
-// console.log(session);
-const { data, error } = await supabase.auth.getSession();
-if(data.session==null){
-session=false;
-}else{
-session=true;
-}
+// import supabase from '../database/connection.js';
+// let session=false;
+// // console.log(session);
+// const { data, error } = await supabase.auth.getSession();
+// if(data.session==null){
+// session=false;
+// }else{
+// session=true;
+// }
 
+const session=false;
 
 
 const routes: Array<RouteRecordRaw> = [
