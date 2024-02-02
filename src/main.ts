@@ -23,15 +23,17 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import {store} from '@/store.js';
+import { provide } from 'vue';
 
 
-
-
+//state injection
+// console.log(store.state);
 
 const app = createApp(App)
   .use(IonicVue)
   .use(store)
-  .use(router);
+  .use(router)
+  .provide('user_state',store.state);
 
 router.isReady().then(() => {
   app.mount('#app');

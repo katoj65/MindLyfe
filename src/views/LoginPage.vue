@@ -1,6 +1,11 @@
 <template>
 <ion-page style="background:#1ABC9C;">
-<ion-content v-if="session==false">
+<ion-content>
+
+
+{{ $store.state }}
+
+
 <form @submit.prevent="submit">
 <h1 style="font-size:30px;font-weight:bolder;">MindLyfe</h1>
 <ion-card style="box-shadow:none;background:#1ABC9C;">
@@ -11,6 +16,7 @@
 </ion-card-header>
 <ion-card-content>
 <p style="text-align:center;color:white;">Get access to our services</p>
+
 
 
 <div v-if="error!=null" class="ion-padding" style="color:red;">
@@ -45,9 +51,11 @@
 
 
 <script>
+import { inject } from 'vue';
 import { IonPage, IonCard,IonCardHeader, IonCardContent,IonCardTitle, IonItem, IonInput, IonButton,IonContent } from '@ionic/vue';
 import SubmitButton from '@/components/SubmitButton.vue';
 import LoginController from '@/database/LoginController';
+import { imageOutline } from 'ionicons/icons';
 export default {
 components:{
 IonPage,
@@ -62,9 +70,16 @@ SubmitButton,
 IonContent
 },
 
+props:{
+app_role:true,
+},
+
+
 
 data(){
+
 return{
+role:false,
 isLoading:false,
 error:null,
 message:null,
@@ -104,7 +119,15 @@ this.error='Connection error';
 }
 
 
+},
+test(){
+if(this.$store.state.role!=null){
+this.$router.push('/');
 }
+}
+
+
+
 },
 
 
@@ -118,6 +141,25 @@ return this.$route.meta.auth;
 
 
 
+},
+
+// beforeRouteEnter (to, from, next) {
+// next(vm => {
+// vm.role='joshua kato';
+
+//   });
+// },
+
+beforeRouteEnter(to,from,next){
+console.log(to);
+next();
+},
+
+
+//setup
+setup(){
+const user_state = inject('user_state');
+return {user_state}
 }
 
 

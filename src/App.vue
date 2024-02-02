@@ -11,6 +11,7 @@ import LoginController from './database/LoginController.js';
 import { StatusBar, Style} from '@capacitor/status-bar';
 
 
+
 export default{
 components:{
 IonApp,
@@ -36,21 +37,20 @@ console.log(this.$route.meta);
 //session alive
 const db=new LoginController;
 db.user_session().then((response)=>{
-
-
 if(response.error==null){
 if(response.data.session!=null){
+this.$store.state.app_state=true;
 const user=response.data.session.user.user_metadata;
 this.$store.state.role=user.role;
 this.$store.state.user=user;
 console.log(response.data.session.user.user_metadata);
 if(response.data.session.user.user_metadata.subscription==null){
-this.$router.push('/login');
+// this.$router.push('/login');
 }else{
-this.$router.push('/');
+// this.$router.push('/');
 }
 }else{
-this.$router.push('/login');
+// this.$router.push('/login');
 }
 
 

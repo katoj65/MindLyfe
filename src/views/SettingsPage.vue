@@ -51,6 +51,7 @@ const db=new LoginController;
 db.logout().then((res)=>{
 console.log(res);
 if(res.error==null){
+this.$store.commit('signout');
 this.$router.push('/login');
 }else{
 console.log(res.error);

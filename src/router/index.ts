@@ -4,20 +4,26 @@ import TabsPage from '../views/TabsPage.vue'
 import RegisterPage from '../views/RegisterPage.vue';
 import LoginPage from '../views/LoginPage.vue';
 import SettingsPage from '../views/SettingsPage.vue';
+import {store} from '@/store.js';
+
+
 //session
-// import supabase from '../database/connection.js';
-// let session=false;
-// // console.log(session);
-// const { data, error } = await supabase.auth.getSession();
-// if(data.session==null){
-// session=false;
-// }else{
-// session=true;
-// }
+import supabase from '../database/connection.js';
+//user_session
+let check=[];
+const session=supabase.auth.getSession();
+session.then(res=>{
+if(res.data.session!=null){
+check.push(res.data.session.user);
+}else{
+check=[];
+}
+});
 
-const session=false;
 
 
+
+//
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -52,43 +58,43 @@ const routes: Array<RouteRecordRaw> = [
 
       }
     ],
-    meta:{auth:session}
+    meta:{auth:check}
   },
 {
 path:'/register',
 component:RegisterPage,
 name:'register',
-meta:{auth:session}
+meta:{auth:check}
 },
 {
 path:'/login',
 component:LoginPage,
 name:'login',
-meta:{auth:session}
+meta:{auth:check}
 },
 {
 path:'/settings',
 component:SettingsPage,
 name:'settings',
-meta:{auth:session}
+meta:{auth:check}
 },
 {
 path:'/create-profile',
 component:()=>import('@/views/CreateProfile.vue'),
 name:'create profile',
-meta:{auth:session}
+meta:{auth:check}
 },
 {
 path:'/account/subscription',
 component:()=>import('@/views/SubscriptionPaymentStructure.vue'),
 name:'create subscription',
-meta:{auth:session}
+meta:{auth:check}
 },
 {
 path:'/account/business',
 component:()=>import('@/views/AccountBusiness.vue'),
 name:'create business',
-meta:{auth:session}
+meta:{auth:check}
 }
 
 
