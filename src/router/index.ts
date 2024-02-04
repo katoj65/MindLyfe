@@ -14,7 +14,8 @@ let check=[];
 const session=supabase.auth.getSession();
 session.then(res=>{
 if(res.data.session!=null){
-check.push(res.data.session.user);
+check.push({id:res.data.session.user.id},
+{role:res.data.session.user.role});
 }else{
 check=[];
 }

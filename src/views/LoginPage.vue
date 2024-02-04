@@ -2,10 +2,7 @@
 <ion-page style="background:#1ABC9C;">
 <ion-content>
 
-
-{{ $store.state }}
-
-
+    {{ session }}
 <form @submit.prevent="submit">
 <h1 style="font-size:30px;font-weight:bolder;">MindLyfe</h1>
 <ion-card style="box-shadow:none;background:#1ABC9C;">
@@ -56,6 +53,7 @@ import { IonPage, IonCard,IonCardHeader, IonCardContent,IonCardTitle, IonItem, I
 import SubmitButton from '@/components/SubmitButton.vue';
 import LoginController from '@/database/LoginController';
 import { imageOutline } from 'ionicons/icons';
+import supabase from '../database/connection.js';
 export default {
 components:{
 IonPage,
@@ -143,16 +141,20 @@ return this.$route.meta.auth;
 
 },
 
-// beforeRouteEnter (to, from, next) {
-// next(vm => {
-// vm.role='joshua kato';
-
-//   });
-// },
-
 beforeRouteEnter(to,from,next){
-console.log(to);
+const session=supabase.auth.getSession();
+session.then((res)=>{
+if(res.data.session!=null){
+//const user_role=res.data.session.user.user_metadata.role;
+return next('');
+}else{
 next();
+}
+}).catch((error)=>{
+console.log(error);
+});
+
+
 },
 
 

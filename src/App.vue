@@ -43,7 +43,7 @@ this.$store.state.app_state=true;
 const user=response.data.session.user.user_metadata;
 this.$store.state.role=user.role;
 this.$store.state.user=user;
-console.log(response.data.session.user.user_metadata);
+// console.log(response.data.session.user.user_metadata);
 if(response.data.session.user.user_metadata.subscription==null){
 // this.$router.push('/login');
 }else{
