@@ -1,6 +1,7 @@
 <template>
 <ion-app>
-<ion-router-outlet/>
+<ion-router-outlet v-if="isLoading==false"/>
+<loader-component v-else/>
 </ion-app>
 </template>
 
@@ -9,6 +10,7 @@ import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import { useBackButton, useIonRouter } from '@ionic/vue';
 import LoginController from './database/LoginController.js';
 import { StatusBar, Style} from '@capacitor/status-bar';
+import LoaderComponent from './components/LoaderComponent.vue';
 
 
 
@@ -16,11 +18,12 @@ export default{
 components:{
 IonApp,
 IonRouterOutlet,
+LoaderComponent
 },
 
 data(){return{
 session:null,
-
+isLoading:false,
 
 }},
 
@@ -35,8 +38,10 @@ methods:{
 access_control(){
 // console.log(this.$route.meta);
 //session alive
+this.isLoading=true;
 const db=new LoginController;
 db.user_session().then((response)=>{
+this.isLoading=false;
 if(response.error==null){
 if(response.data.session!=null){
 this.$store.state.app_state=true;
@@ -86,11 +91,10 @@ await StatusBar.setStyle({ style: Style.Light });
 
 mounted(){
 this.access_control();
-this.settings();
 this.setStatusBarStyleLight();
+this.settings();
+
 },
-
-
 
 
 
@@ -100,9 +104,7 @@ this.setStatusBarStyleLight();
 setup() {
 const ionRouter = useIonRouter();
 useBackButton(-1, () => {
-if (!ionRouter.canGoBack()) {
 App.exitApp();
-}
 });
 },
 

@@ -12,26 +12,31 @@
 
 
 
-<ion-item v-for="(r,key) in row" :key="n" @click="$router.push('/therapist/1')"  button>
-<ion-avatar slot="start">
+<ion-item v-for="(r,key) in row" :key="key"  button detail="false" lines="none">
+<ion-avatar slot="start" @click="$router.push('/therapist/1')" >
 <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
 </ion-avatar>
 <ion-label>
-<h1 style="text-transform:capitalize;">{{ r.names }} </h1>
-<p>
-  {{ r.therapy.name }}
-  </p>
-<p>
+<h1 style="text-transform:capitalize;" @click="$router.push('/therapist/'+r.id)" >{{ r.names }} </h1>
+<p @click="$router.push('/therapist/'+r.id)" >
+  {{ r.therapy.name }}</p>
+<p @click="$router.push('/therapist/'+r.id)" >
 From {{ r.location }}
 </p>
-
 </ion-label>
+<ion-icon :icon="enter" slot="end" @click="isOpen==true"></ion-icon>
 </ion-item>
-
-
-
-
 </div>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -45,13 +50,19 @@ From {{ r.location }}
 import Applayout from '@/components/Applayout.vue'
 import TherapistController from '../database/TherapistController.js';
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
-import { IonItem, IonAvatar, IonLabel,IonIcon } from '@ionic/vue';
+import { IonItem, IonAvatar, IonLabel,IonIcon,
+
+
+
+} from '@ionic/vue';
+import { enter } from 'ionicons/icons';
 export default {
 components:{
 Applayout,
 SkeletonLoader,
-IonItem, IonAvatar, IonLabel,
-IonIcon
+IonItem, IonAvatar,
+IonLabel, IonIcon,
+
 
 },
 
@@ -60,6 +71,8 @@ back:'/',
 title:'Therapists',
 row:[],
 isLoading:false,
+isOpen:false,
+
 
 
 }},
@@ -97,6 +110,12 @@ console.log(error);
 
 mounted(){
 this.therapist();
+},
+
+setup(){
+return{
+enter
+}
 }
 
 

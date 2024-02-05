@@ -12,25 +12,6 @@
 
 
 
-<ion-item v-for="n in 30" :key="n" @click="$router.push('/therapist/1')" lines="none">
-<ion-avatar slot="start">
-<img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-</ion-avatar>
-<ion-label>
-<h3>Name</h3>
-<p>
-Tel: 0752567534
-</p>
-</ion-label>
-</ion-item>
-
-
-
-
-
-
-
-
 
 
 
@@ -40,42 +21,32 @@ Tel: 0752567534
 <script>
 import Applayout from '@/components/Applayout.vue';
 import SkeletonLoader from '@/components/SkeletonLoader.vue';
-import { IonItem, IonAvatar, IonLabel } from '@ionic/vue';
 
 export default {
 components:{
 Applayout,
 SkeletonLoader,
-IonItem, IonAvatar, IonLabel
 
 },
 
 data(){return{
-title:'Show therapist',
+title:'Template',
 isLoading:false,
 row:[],
 error:null,
-
-
-
-
 }},
 
 
 
-//
-methods:{
-therapist(){
 
-}
+methods:{
+
 
 
 },
 
 
-//
 mounted(){
-this.therapist();
 
 }
 

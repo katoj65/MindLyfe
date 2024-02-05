@@ -118,13 +118,32 @@ path:'/therapist/:id',
 component:()=>import('@/views/ShowTherapist.vue'),
 name:'show therapist',
 meta:{auth:check}
-}
+},
+
+{
+  path:'/create-appointment/:id',
+  component:()=>import('@/views/CreateAppointment.vue'),
+  name:'create appointment',
+  meta:{auth:check}
+  },
+
+  {
+    path:'/appointment/:id',
+    component:()=>import('@/views/ShowAppointment.vue'),
+    name:'show appointment',
+    meta:{auth:check}
+    }
 
 
 
 
 
 ]
+
+
+
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
