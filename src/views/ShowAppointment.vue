@@ -9,7 +9,7 @@
 </div>
 <div v-else>
 
-<ion-item>
+<ion-item lines="none">
 <ion-label>
 Date
 </ion-label>
@@ -18,7 +18,7 @@ Date
 </ion-note>
 </ion-item>
 
-<ion-item>
+<ion-item lines="none">
 <ion-label>
 Time
 </ion-label>
@@ -28,7 +28,7 @@ Time
 </ion-item>
 
 
-<ion-item>
+<ion-item lines="none">
 <ion-label>
 Appointment
 </ion-label>
@@ -39,7 +39,7 @@ Appointment
 
 
 
-<ion-item>
+<ion-item lines="none">
 <ion-label>
 Names
 </ion-label>
@@ -48,7 +48,7 @@ Names
 </ion-note>
 </ion-item>
 
-<ion-item>
+<ion-item lines="none">
 <ion-label>
 Tel
 </ion-label>
@@ -57,7 +57,7 @@ Tel
 </ion-note>
 </ion-item>
 
-<ion-item>
+<ion-item lines="none">
 <ion-label>
 Email
 </ion-label>
@@ -68,7 +68,7 @@ Email
 
 
 
-<ion-item>
+<ion-item lines="none">
 <ion-label>
 Location
 </ion-label>
@@ -98,7 +98,7 @@ IonNote
 },
 
 data(){return{
-title:'Appointment details',
+title:'Appointment',
 back:'/',
 isLoading:false,
 row:{},
@@ -157,3 +157,8 @@ this.appointment();
 
 }
 </script>
+<style scoped>
+ion-note{
+font-size:16px;
+}
+</style>

@@ -219,4 +219,8 @@ border-radius:5px;
 ion-modal{
 border-radius: 10px 10px 10px 10px;
 }
+
+ion-content{
+border-radius: 10px 10px 10px 10px;
+}
 </style>
