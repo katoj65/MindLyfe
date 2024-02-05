@@ -26,7 +26,10 @@ signout(state){
 state.role=null;
 state.app_state=null;
 state.user={};
-}
+},
+
+//
+
 
 
 

@@ -7,6 +7,15 @@
  -->
 
 <ion-toolbar>
+
+
+<ion-buttons slot="start" v-if="back!=null">
+<ion-back-button @click="$router.push(back)"></ion-back-button>
+</ion-buttons>
+
+
+
+
     <ion-buttons slot="secondary">
       <ion-button>
         <ion-icon slot="icon-only" :icon="search"></ion-icon>
@@ -35,7 +44,7 @@
 
 
 
-<div style="background:#E8F8F5;">
+<div>
 
 <slot></slot>
 
@@ -57,9 +66,13 @@ IonToolbar,
 IonTitle,
 IonContent,
 IonButton, IonButtons,IonIcon,
-
+IonBackButton,
 } from '@ionic/vue';
-import { create, ellipsisHorizontal, ellipsisVertical, search, notifications} from 'ionicons/icons';
+import { create, ellipsisHorizontal, ellipsisVertical, search, notifications,
+
+
+
+} from 'ionicons/icons';
 export default {
 components:{
 IonPage,
@@ -68,6 +81,7 @@ IonToolbar,
 IonTitle,
 IonContent,
 IonButton, IonButtons,IonIcon,
+IonBackButton,
 },
 
 props:{

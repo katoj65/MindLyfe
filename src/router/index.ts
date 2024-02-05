@@ -96,8 +96,29 @@ path:'/account/business',
 component:()=>import('@/views/AccountBusiness.vue'),
 name:'create business',
 meta:{auth:check}
-}
+},
 
+//posts
+{
+path:'/post/:id',
+component:()=>import('@/views/ShowPost.vue'),
+name:'show post',
+meta:{auth:check}
+},
+
+{
+path:'/therapists',
+component:()=>import('@/views/TherapistsPage.vue'),
+name:'therapists',
+meta:{auth:check}
+},
+
+{
+path:'/therapist/:id',
+component:()=>import('@/views/ShowTherapist.vue'),
+name:'show therapist',
+meta:{auth:check}
+}
 
 
 

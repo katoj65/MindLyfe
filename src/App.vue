@@ -33,7 +33,7 @@ session:null,
 
 methods:{
 access_control(){
-console.log(this.$route.meta);
+// console.log(this.$route.meta);
 //session alive
 const db=new LoginController;
 db.user_session().then((response)=>{
@@ -45,21 +45,15 @@ this.$store.state.role=user.role;
 this.$store.state.user=user;
 // console.log(response.data.session.user.user_metadata);
 if(response.data.session.user.user_metadata.subscription==null){
-// this.$router.push('/login');
+this.$router.push('/login');
 }else{
-// this.$router.push('/');
+this.$router.push('/');
 }
 }else{
-// this.$router.push('/login');
+this.$router.push('/login');
 }
-
-
-
-
-
-
 }else{
-this.$router('/login');
+this.$router.push('/login');
 }
 }).catch((error)=>{
 console.log(error);
@@ -67,11 +61,8 @@ console.log(error);
 
 
 
-
-
-
-
 },
+
 
 async settings(){
 await StatusBar.setBackgroundColor({ color: '#1ABC9C' });
@@ -113,10 +104,7 @@ if (!ionRouter.canGoBack()) {
 App.exitApp();
 }
 });
-}
-
-
-
+},
 
 
 }

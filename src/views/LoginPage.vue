@@ -2,7 +2,7 @@
 <ion-page style="background:#1ABC9C;">
 <ion-content>
 
-    {{ session }}
+
 <form @submit.prevent="submit">
 <h1 style="font-size:30px;font-weight:bolder;">MindLyfe</h1>
 <ion-card style="box-shadow:none;background:#1ABC9C;">
@@ -14,12 +14,9 @@
 <ion-card-content>
 <p style="text-align:center;color:white;">Get access to our services</p>
 
-
-
 <div v-if="error!=null" class="ion-padding" style="color:red;">
 {{ error }}
 </div>
-
 
 <ion-item lines="none">
 <ion-input type="email" placeholder="Enter your email address" v-model="form.email" label="Email:"></ion-input>
@@ -42,17 +39,17 @@
 </ion-card-content>
 </ion-card>
 </form>
+
+
 </ion-content>
 </ion-page>
 </template>
-
-
 <script>
 import { inject } from 'vue';
 import { IonPage, IonCard,IonCardHeader, IonCardContent,IonCardTitle, IonItem, IonInput, IonButton,IonContent } from '@ionic/vue';
 import SubmitButton from '@/components/SubmitButton.vue';
 import LoginController from '@/database/LoginController';
-import { imageOutline } from 'ionicons/icons';
+// import { imageOutline } from 'ionicons/icons';
 import supabase from '../database/connection.js';
 export default {
 components:{
@@ -68,27 +65,32 @@ SubmitButton,
 IonContent
 },
 
+
+
 props:{
 app_role:true,
 },
 
 
 
-data(){
 
+data(){
 return{
+
 role:false,
 isLoading:false,
 error:null,
 message:null,
+
 form:{
 email:'',
 password:'',
 }
 
-
-
 }},
+
+
+
 
 methods:{
 submit(){
@@ -129,6 +131,11 @@ this.$router.push('/');
 },
 
 
+
+
+
+
+
 //
 computed:{
 session(){
@@ -141,7 +148,11 @@ return this.$route.meta.auth;
 
 },
 
+
+//before route enter guard.
 beforeRouteEnter(to,from,next){
+const name=to.name;
+if(name=='login'){
 const session=supabase.auth.getSession();
 session.then((res)=>{
 if(res.data.session!=null){
@@ -153,15 +164,15 @@ next();
 }).catch((error)=>{
 console.log(error);
 });
-
-
+}
 },
+
 
 
 //setup
 setup(){
 const user_state = inject('user_state');
-return {user_state}
+return { user_state };
 }
 
 
