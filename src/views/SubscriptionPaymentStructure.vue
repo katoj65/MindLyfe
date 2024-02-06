@@ -26,7 +26,13 @@
 {{ error }}
 </div>
 
-<div v-if="group==true">
+
+
+
+
+
+
+<div v-if="form_type==1">
 <div v-if="isLoading3==false">
 <ion-radio-group>
 <ion-item v-for="(p,key) in payment_plan" :key="key" @click="select_plan(p.id)">
@@ -43,32 +49,44 @@
 
 </div>
 
-<div v-if="code_status==true || code_status==null" style="margin-top:10px;">
+
+
+
+
+
+
+
+
+<div style="margin-top:10px;" v-else>
 <h2 style="color:white;font-weight:bold;font-size:20px;padding-bottom:10px;">
 Campany Code
 </h2>
 <div style="">
 <ion-item>
-<ion-input label="Company Code:" placeholder="Enter a 5 digit code" @ionKeypress="input_code($event)"></ion-input>
+<ion-input label="Company Code:" placeholder="Enter a 5 digit code" v-model="form.subscription_id"></ion-input>
 </ion-item>
 </div>
-
-
 </div>
 
-<ion-chip v-else-if="code_status==false" @click="set_business_code(true)">
+
+
+
+<ion-chip v-if="form_type==1" @click="set_form_type(2)">
 <ion-label style="color:white;">I Have a company code</ion-label>
 </ion-chip>
 
-<ion-chip v-if="code_status==true" @click="set_business_code(false)">
+<ion-chip v-else @click="set_form_type(1)">
 <ion-label style="color:white;">Select subscription plan</ion-label>
 </ion-chip>
 
 
 
 
-<div>
+<div style="margin-top:20px;">
 <submit-button :isLoading="isLoading" :title="'Finish'"/>
+
+
+
 </div>
 </ion-card-content>
 </ion-card>
@@ -125,6 +143,7 @@ IonRadioGroup,
 
 data(){
 return{
+form_type:1,
 group:true,
 code_status:null,
 form:{
@@ -139,6 +158,12 @@ isLoading3:false,
 }},
 
 methods:{
+//set form type
+set_form_type(state){
+this.form_type=state;
+},
+
+
 //select code
 input_code(event){
 this.form.subscription_id=event.target.value;
@@ -232,7 +257,53 @@ const form=this.form;
 if(form.subscription_id==''){
 this.error='Select your subscription plan or fill in the business code.';
 }else{
-this.$router.push('/');
+this.isLoading=true;
+//check for subscription plan
+if(this.form_type==2){
+//check the subscription code
+const db=new SubscriptionController;
+const code=this.form.subscription_id;
+const email=this.$store.state.user.email;
+db.find_subscription_code(code,email).then((res)=>{
+if(res.status==200){
+this.isLoading=false;
+if(res.data.length==1){
+//update the subscription
+res.data.forEach(element => {
+//update role
+const login=new LoginController;
+//update user metadata role
+login.set_role(element.role);
+db.subscription_code_status(email,'active');
+db.user_subscribe(email,element.id);
+this.$router.push('/create-therapist-profile');
+});
+console.log(res.data);
+}else{
+this.error='Invalid Business Code.';
+}
+}else{
+this.error=res.error;
+}
+}).catch((error)=>{
+console.log(error);
+});
+
+
+
+
+
+}else{
+//the
+
+
+
+
+
+}
+
+
+//this.$router.push('/');
 }
 },
 

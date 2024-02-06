@@ -29,6 +29,10 @@ return await supabase.from('appointment')
 }
 
 
+async therapist_appointments(id){
+return await supabase.from('appointment').select('*').eq('therapist_id',id);
+}
+
 
 
 

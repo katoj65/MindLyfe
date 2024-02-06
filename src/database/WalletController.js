@@ -27,6 +27,20 @@ return  await supabase
 
 
 
+async realtime_wallet(){
+const data=[];
+const channels = supabase.channel('custom-update-channel')
+.on('postgres_changes',{ event: 'UPDATE', schema: 'public', table: 'wallet' },
+(payload) => {data.push(payload.new.amount)}
+).subscribe();
+console.log(data);
+return await data;
+}
+
+
+
+
+
 
 
 

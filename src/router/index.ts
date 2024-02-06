@@ -127,12 +127,19 @@ meta:{auth:check}
   meta:{auth:check}
   },
 
-  {
-    path:'/appointment/:id',
-    component:()=>import('@/views/ShowAppointment.vue'),
-    name:'show appointment',
-    meta:{auth:check}
-    }
+{
+path:'/appointment/:id',
+component:()=>import('@/views/ShowAppointment.vue'),
+name:'show appointment',
+meta:{auth:check}
+},
+
+{
+path:'/create-therapist-profile',
+component:()=>import('@/views/CreateTherapistProfileInfo.vue'),
+name:'create therapist info',
+meta:{auth:check}
+}
 
 
 

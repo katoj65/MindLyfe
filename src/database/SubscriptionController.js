@@ -19,6 +19,23 @@ return await supabase.from('subscription_category').select('*').eq('role_id',2);
 }
 
 
+async find_subscription_code(code,email){
+return await supabase
+.from('subscription_code')
+.select("code,role,id")
+.eq('code',code)
+.eq('user_email',email)
+.eq('status','pending');
+}
+
+
+async subscription_code_status(email,status){
+await supabase.from('subscription_code').update({status:status}).eq('user_email',email);
+}
+
+async user_subscribe(email,id){
+await supabase.from('user_subscription').insert([{user_email:email,subscription_id:id}]);
+}
 
 
 

@@ -86,7 +86,7 @@ this.row=el;
 this.user_details=this.$store.state.user;
 });
 }else{
-this.res.error;
+this.error=res.error;
 }
 }).catch((error)=>{
 console.log(error);
@@ -94,11 +94,24 @@ console.log(error);
 
 },
 
+realtime(){
+const db=new WalletController;
+db.realtime_wallet().then(res=>{
+console.log(res);
+}).catch(error=>{
+  console.log(error);
+});
+}
+
+
+
+
 
 },
 
 mounted(){
 this.wallet();
+this.realtime();
 }
 
 
@@ -117,4 +130,9 @@ ion-item.button{
   border:solid 1px #EAEDED;
   margin:10px;
 }
+
+ion-note{
+font-size: 16px;
+}
+
 </style>

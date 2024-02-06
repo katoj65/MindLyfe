@@ -1,18 +1,25 @@
 <template>
 <applayout>
+<div v-if="role=='user'">
 <news-component></news-component>
 <content-component style="margin-top:0px;"></content-component>
+</div>
+<div v-else-if="role=='therapist'">
+<dashboad-component/>
+</div>
 </applayout>
 </template>
 <script>
 import Applayout from '@/components/Applayout.vue';
 import NewsComponent from '@/components/NewsComponent.vue';
 import ContentComponent from '@/components/ContentComponent.vue';
+import DashboadComponent from '@/therapist/DashboadComponent.vue';
 export default {
 components:{
 Applayout,
 NewsComponent,
-ContentComponent
+ContentComponent,
+DashboadComponent,
 },
 
 data(){return{

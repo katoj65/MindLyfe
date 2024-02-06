@@ -45,10 +45,8 @@ db.user_session().then((response)=>{
 this.isLoading=false;
 if(response.error==null){
 if(response.data.session!=null){
-
-
-
-
+    
+// console.log(response.data);
 //
 this.$store.state.app_state=true;
 const user=response.data.session.user.user_metadata;
