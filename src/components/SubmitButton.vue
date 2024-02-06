@@ -23,6 +23,7 @@ ion-button{
 box-shadow:none;
 height:50px;
 width:100%;
+text-transform: capitalize;
 
 }
 </style>

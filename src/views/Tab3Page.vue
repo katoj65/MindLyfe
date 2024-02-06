@@ -17,7 +17,7 @@
 <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
 </ion-avatar>
 <ion-label>
-<h1 style="text-transform:capitalize;" @click="$router.push('/therapist/'+r.id)" >{{ r.names }} </h1>
+<h3 style="text-transform:capitalize;font-weight:bold;" @click="$router.push('/therapist/'+r.id)" >{{ r.names }} </h3>
 <p @click="$router.push('/therapist/'+r.id)" >
   {{ r.therapy.name }}</p>
 <p @click="$router.push('/therapist/'+r.id)" >

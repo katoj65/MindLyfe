@@ -4,7 +4,7 @@
 <!-- <ion-toolbar>
 <ion-title>{{ title!=null?title:'MindLyfe' }} </ion-title>
 </ion-toolbar>
- -->
+-->
 
 <ion-toolbar>
 
@@ -13,24 +13,21 @@
 <ion-back-button @click="$router.push(back)"></ion-back-button>
 </ion-buttons>
 
-
-
-
-    <ion-buttons slot="secondary">
-      <ion-button>
-        <ion-icon slot="icon-only" :icon="search"></ion-icon>
-      </ion-button>
-      <ion-button>
-        <ion-icon slot="icon-only" :icon="notifications"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button @click="$router.push('/settings')">
-        <ion-icon slot="icon-only" :ios="ellipsisHorizontal" :md="ellipsisVertical"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title style="font-weight:bolder;">{{ title!=null?title:'MindLyfe' }} </ion-title>
-  </ion-toolbar>
+<ion-buttons slot="secondary">
+<ion-button>
+<ion-icon slot="icon-only" :icon="search"></ion-icon>
+</ion-button>
+<ion-button>
+<ion-icon slot="icon-only" :icon="chatbox"></ion-icon>
+</ion-button>
+</ion-buttons>
+<ion-buttons slot="primary">
+<ion-button @click="$router.push('/settings')">
+<ion-icon slot="icon-only" :ios="ellipsisHorizontal" :md="ellipsisVertical"></ion-icon>
+</ion-button>
+</ion-buttons>
+<ion-title style="font-weight:bolder;">{{ title!=null?title:'MindLyfe' }} </ion-title>
+</ion-toolbar>
 
 
 
@@ -68,11 +65,7 @@ IonContent,
 IonButton, IonButtons,IonIcon,
 IonBackButton,
 } from '@ionic/vue';
-import { create, ellipsisHorizontal, ellipsisVertical, search, notifications,
-
-
-
-} from 'ionicons/icons';
+import { create, ellipsisHorizontal, ellipsisVertical, search, notifications,chatbox } from 'ionicons/icons';
 export default {
 components:{
 IonPage,
@@ -95,7 +88,8 @@ create,
 ellipsisHorizontal,
 ellipsisVertical,
 search,
-notifications
+notifications,
+chatbox
 
 }}
 
@@ -117,7 +111,7 @@ notifications
 
 <style scoped>
 ion-toolbar{
-  --background:#1ABC9C;
-  --color: white;
+--background:#1ABC9C;
+--color: white;
 }
 </style>

@@ -178,10 +178,26 @@ if(res.data.error==null){
 const subscribe_model=new SubscriptionController;
 subscribe_model.show_user_subscription().then((response)=>{
 if(response.status==200){
-
 this.payment_plan=response.data;
 this.isLoading3=false;
 this.form.contact_person=this.row.tel;
+
+
+//session details
+this.$store.state.app_state=true;
+const user=res.data.session.user.user_metadata;
+const set_user={
+fname:user.firstname,
+lname:user.lastname,
+gender:user.gender,
+tel:user.tel,
+role:user.role,
+online_status:user.online_status,
+email:res.data.session.user.email
+};
+this.$store.state.role=user.role;
+this.$store.state.user=set_user;
+//end session details
 
 
 
